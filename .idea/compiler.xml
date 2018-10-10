@@ -11,6 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="cflwork-activiti" target="1.8" />
       <module name="cflwork-common" target="1.8" />
       <module name="cflwork-work" target="1.8" />
     </bytecodeTargetLevel>
