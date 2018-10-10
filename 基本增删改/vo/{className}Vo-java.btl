@@ -1,0 +1,21 @@
+package top.cflwork.vo;
+import lombok.Data;
+import java.util.Date;
+/**
+*
+*${tableComment}
+*
+*/
+@Data
+public class ${className}Vo{
+
+<%for(var i=0;i<camelFieldNames.~size;i++){ %>
+    //${isNotEmpty(fieldComments[i])?fieldComments[i]:camelFieldNames[i]}
+    private ${fieldTypes[i]} ${camelFieldNames[i]};
+<%}%>
+ //分页排序等
+    @Transient
+    @NotNull(message = "pager不能为空")
+    @Valid
+    private Pager pager;
+}

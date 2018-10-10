@@ -1,0 +1,18 @@
+package top.cflwork.dao;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+import top.cflwork.vo.${className}Vo;
+import top.cflwork.query.PageQuery;
+
+import java.util.List;
+import java.util.Map;
+import org.springframework.stereotype.Repository;
+import top.cflwork.dao.BaseDAO;
+@Repository
+public interface ${className}DAO  extends BaseDAO<${className}Vo> {
+
+	List<${className}Vo> listPages(@Param("pageQuery") PageQuery pageQuery, @Param("${javaName}Vo") ${className}Vo ${javaName}Vo);
+	
+    long counts(@Param("pageQuery") PageQuery pageQuery, @Param("${javaName}Vo") ${className}Vo ${javaName}Vo);
+	
+}

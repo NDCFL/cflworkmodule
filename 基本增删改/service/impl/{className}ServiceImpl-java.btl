@@ -1,0 +1,77 @@
+package top.cflwork.service.impl;
+
+import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Map;
+import top.cflwork.query.PageQuery;
+import top.cflwork.query.StatusQuery;
+import top.cflwork.dao.${className}DAO;
+import top.cflwork.vo.${className}Vo;
+import top.cflwork.service.${className}Service;import javax.annotation.Resource;
+
+
+@Service
+public class ${className}ServiceImpl implements ${className}Service {
+    @Resource
+    private ${className}DAO ${javaName}DAO;
+
+    @Override
+    public void save(${className}Vo ${javaName}Vo) {
+            ${javaName}DAO.save(${javaName}Vo);
+    }
+
+    @Override
+    public void remove(${className}Vo ${javaName}Vo) {
+            ${javaName}DAO.remove(${javaName}Vo);
+    }
+
+    @Override
+    public void removeById(Long id) {
+            ${javaName}DAO.removeById(id);
+    }
+
+    @Override
+    public void update(${className}Vo ${javaName}Vo) {
+            ${javaName}DAO.update(${javaName}Vo);
+    }
+
+    @Override
+    public void updateStatus(StatusQuery statusQuery) {
+            ${javaName}DAO.updateStatus(statusQuery);
+    }
+
+    @Override
+    public ${className}Vo getById(Long id) {
+        return ${javaName}DAO.getById(id);
+    }
+
+    @Override
+    public List<${className}Vo> listAll() {
+        return ${javaName}DAO.listAll();
+    }
+
+    @Override
+    public List<${className}Vo> listPage(PageQuery pageQuery) {
+        return ${javaName}DAO.listPage(pageQuery);
+    }
+
+    @Override
+    public long count(PageQuery pageQuery) {
+        return ${javaName}DAO.count(pageQuery);
+    }
+
+    @Override
+    public void removeMany(Long[] id) {
+            ${javaName}DAO.removeMany(id);
+    }
+
+    @Override
+    public List<${className}Vo> listPages(PageQuery pageQuery, ${className}Vo ${javaName}Vo) {
+        return ${javaName}DAO.listPages(pageQuery, ${javaName}Vo);
+    }
+
+    @Override
+    public long counts(PageQuery pageQuery, ${className}Vo ${javaName}Vo) {
+        return  ${javaName}DAO.counts(pageQuery, ${javaName}Vo);
+    }
+}

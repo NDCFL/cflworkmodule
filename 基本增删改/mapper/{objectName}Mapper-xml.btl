@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="I${className}Dao">
+    <!--########################################################################################################################-->
+    <select id="find${className}ListByCondition" parameterType="${className}" resultType="${className}">
+        select
+         <choose>
+             <when test="pager!=null and pager.includes!=null">
+                 <foreach collection="pager.includes" item="field" separator=",">
+                     T.\${@com.xiaoleilu.hutool.util.StrUtil@toUnderlineCase(field)}
+                 </foreach>
+             </when>
+             <when test="pager!=null and pager.excludes!=null">
+                 <trim suffixOverrides=",">
+                    <%for(var i=0;i<camelFieldNames.~size;i++){%>
+                         <if test="!pager.excludes.contains('${camelFieldNames[i]}')">
+                             T.${fieldNames[i]},
+                         </if>
+                    <%}%>
+                 </trim>
+             </when>
+             <otherwise>
+                 T.*
+             </otherwise>
+         </choose>
+         from ${tableName} T
+        <where>
+            <%for(var i=0;i<noIdCamelFieldNames.~size;i++){%>
+              <if test="${noIdCamelFieldNames[i]}!=null">
+                ${i!=0?"and"} T.${noIdFieldNames[i]}=#{${noIdCamelFieldNames[i]}}
+              </if>
+           <%}%>
+
+        </where>
+        <if test="pager!=null and pager.sortField!=null and pager.sortOrder!=null">
+            order by T.\${@com.xiaoleilu.hutool.util.StrUtil@toUnderlineCase(pager.sortField)} \${@com.xiaoleilu.hutool.util.StrUtil@toUnderlineCase(pager.sortOrder)}
+        </if>
+        <if test="pager!=null and  pager.paging">
+            limit #{pager.beginRow},#{pager.pageSize}
+        </if>
+    </select>
+    <select id="find${className}CountByCondition" parameterType="${className}" resultType="long">
+        select count(*) from ${tableName}
+        <where>
+            <%for(var i=0;i<noIdCamelFieldNames.~size;i++){%>
+              <if test="${noIdCamelFieldNames[i]}!=null">
+                ${i!=0?"and"} ${noIdFieldNames[i]}=#{${noIdCamelFieldNames[i]}}
+              </if>
+           <%}%>
+        </where>
+    </select>
+    <select id="find${className}ById" resultType="${className}">
+        select * from ${tableName} where ${id}=#{id}
+    </select>
+    <select id="findOne${className}ByCondition" parameterType="${className}" resultType="${className}">
+        select
+         <choose>
+             <when test="pager!=null and pager.includes!=null">
+                 <foreach collection="pager.includes" item="field" separator=",">
+                     T.\${@com.xiaoleilu.hutool.util.StrUtil@toUnderlineCase(field)}
+                 </foreach>
+             </when>
+             <when test="pager!=null and pager.excludes!=null">
+                 <trim suffixOverrides=",">
+                    <%for(var i=0;i<camelFieldNames.~size;i++){%>
+                         <if test="!pager.excludes.contains('${camelFieldNames[i]}')">
+                             T.${fieldNames[i]},
+                         </if>
+                    <%}%>
+                 </trim>
+             </when>
+             <otherwise>
+                 T.*
+             </otherwise>
+         </choose>
+         from ${tableName} T
+        <where>
+            <%for(var i=0;i<noIdCamelFieldNames.~size;i++){%>
+              <if test="${noIdCamelFieldNames[i]}!=null">
+                ${i!=0?"and"} T.${noIdFieldNames[i]}=#{${noIdCamelFieldNames[i]}}
+              </if>
+           <%}%>
+        </where>
+    </select>
+    <insert id="save${className}" parameterType="${className}">
+        insert into ${tableName}
+         (
+        <%for(fieldName in fieldNames){%>
+            ${fieldName}${!fieldNameLP.last?",":""}
+        <%}%>
+        ) values
+         (
+        <%for(fieldName in camelFieldNames){%>
+            <%if(fieldName=='createTime'){%>
+                now()
+            <%}else{%>
+                ${"#{"+fieldName+"\}"}
+            <%}%>
+                ${!fieldNameLP.last?",":""}
+        <%}%>
+         )
+    </insert>
+    <update id="update${className}" parameterType="${className}">
+        update ${tableName}
+        <set>
+            <%for(var i=0;i<noIdCamelFieldNames.~size;i++){var fieldName=noIdCamelFieldNames[i];%>
+                <%if(fieldName=='updateTime'){%>
+                    update_time=now()${i!=noIdCamelFieldNames.~size-1?",":""}
+                <%}else{%>
+                    <if test="${fieldName}!=null ">
+                        ${noIdFieldNames[i]+"=#{"+fieldName+"\}"}${i!=noIdCamelFieldNames.~size-1?",":""}
+                    </if>
+                <%}%>
+           <%}%>
+          </set>
+         where ${id}=#{${id}}
+    </update>
+    <delete id="delete${className}" >
+        delete from ${tableName} where ${id}=#{id}
+    </delete>
+    <delete id="delete${className}ByCondition" >
+        delete from ${tableName}
+        <where>
+            <%for(var i=0;i<camelFieldNames.~size;i++){%>
+              <if test="${camelFieldNames[i]}!=null">
+                ${i!=0?"and"} ${fieldNames[i]}=#{${camelFieldNames[i]}}
+              </if>
+           <%}%>
+        </where>
+    </delete>
+    <insert id="batchSave${className}" parameterType="${className}">
+        INSERT INTO ${tableName} ( <%for(fieldName in fieldNames){%> ${fieldName}${!fieldNameLP.last?",":""} <%}%>)
+        VALUES
+        <foreach collection="list" item="${javaName}" separator=",">
+            ( <%for(fieldName in camelFieldNames){%> ${"#{"+javaName+"."+fieldName+"\}"}${!fieldNameLP.last?",":""} <%}%> )
+        </foreach>
+    </insert>
+    <!--########################################################################################################################-->
+</mapper>
