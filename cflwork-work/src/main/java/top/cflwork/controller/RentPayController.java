@@ -26,6 +26,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 分成房租板块
+ *  统计酒店的总收入，总支出，
+ */
 @RequestMapping("rentPay")
 @Controller
 public class RentPayController {
@@ -48,6 +52,23 @@ public class RentPayController {
         pageQuery.setPageNo(pagingBean.getStartIndex());
         pageQuery.setPageSize(pagingBean.getPageSize());
         pagingBean.setrows(rentPayService.listPage(pageQuery));
+        return pagingBean;
+    }
+
+    @RequestMapping("findRentPayList")
+    @ResponseBody
+    public PagingBean findRentPayList(int pageSize, int pageIndex, String searchVal, HttpSession session,RentPayVo rentPayVo) throws Exception {
+        UserVo userVo = (UserVo) session.getAttribute("userVo");
+        PagingBean pagingBean = new PagingBean();
+        PageQuery pageQuery = new PageQuery();
+        pageQuery.setCompanyId(userVo.getCompanyId());
+        pageQuery.setSearchVal(searchVal);
+        pagingBean.setTotal(rentPayService.counts(pageQuery,rentPayVo));
+        pagingBean.setPageSize(pageSize);
+        pagingBean.setCurrentPage(pageIndex);
+        pageQuery.setPageNo(pagingBean.getStartIndex());
+        pageQuery.setPageSize(pagingBean.getPageSize());
+        pagingBean.setrows(rentPayService.listPages(pageQuery,rentPayVo));
         return pagingBean;
     }
 
@@ -131,7 +152,7 @@ public class RentPayController {
 
     @RequestMapping("/hotelInfo")
     @ResponseBody
-    public HouseRentVo hotelInfo(Long hotelId) {
+    public RentVo hotelInfo(Long hotelId) {
         if (hotelId == null) {
             return rentPayService.notHotelId();
         } else {
@@ -221,6 +242,30 @@ public class RentPayController {
             return null;
         }
     }
+
+    /**
+     *
+     * @param session 获取用户的基本信息，比对所在的公司
+     * @return 返回除分成房租里面包含的酒店
+     * @throws Exception
+     */
+    @RequestMapping("getOtherHotel")
+    @ResponseBody
+    public List<HotelVo> getOtherHotel(HttpSession session) throws Exception {
+        try {
+            UserVo userVo = (UserVo) session.getAttribute("userVo");
+            return rentPayService.getOtherHotel(userVo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @RequestMapping("otherHotelPage")
+    public String otherHotelPage() throws Exception {
+        return "/moneyItems/otherHotelList";
+    }
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

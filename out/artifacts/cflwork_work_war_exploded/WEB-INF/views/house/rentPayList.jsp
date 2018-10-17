@@ -91,7 +91,7 @@
                         </div>
                         <div class="ibox-content">
                             <div style="height: 40px;width: 100%;line-height: 40px">
-                                当前有<span style="color: red">n</span>个店面未录入营收数据
+                                当前有<span style="color: red">n</span>个店面未录入营收数据<a style="color: #0d8ddb;font-size: 16px;" onclick="otherHotel()">查看</a>
                             </div>
                             <div style="width: 100%;height:120px;">
                                 <div class="col-xs-6">
@@ -107,11 +107,11 @@
                             </div>
                             <div style="width: 100%;height:40px;">
                                 <div class="col-xs-6"
-                                     style="text-align: center;line-height: 45px;color: #009fed;font-size: 16px;" onclick="income();">
+                                     style="text-align: center;line-height: 45px;color: #009fed;font-size: 16px;cursor: pointer;" onclick="income();">
                                     查看详情
                                 </div>
                                 <div class="col-xs-6"
-                                     style="text-align: center;line-height: 45px;color: #3db901;font-size: 16px;"  onclick="outcome();">
+                                     style="text-align: center;line-height: 45px;color: #3db901;font-size: 16px;cursor: pointer;"  onclick="outcome();">
                                     查看详情
                                 </div>
                             </div>
@@ -202,7 +202,7 @@
                     <h5>分成房源总数/间</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins" id="houseTotal"></h1>
+                    <h1 class="no-margins" id="rentHouseCount"></h1>
                     <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
                     </div>
                     <small>房源总数</small>
@@ -216,7 +216,7 @@
                     <h5>分成房源总面积/平米</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins" id="dfPayMoney"></h1>
+                    <h1 class="no-margins" id="rentHouseSumArea"></h1>
                     <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
                     </div>
                     <small>总面积/平米</small>
@@ -227,10 +227,10 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="label label-info pull-right">全年</span>
-                    <h5>今日单平收益/元</h5>
+                    <h5>今日单平营业额/元</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins" id="monthPayMoney"></h1>
+                    <h1 class="no-margins" id="money"></h1>
                     <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
                     </div>
                     <small>单平收益/元</small>
@@ -244,7 +244,7 @@
                     <h5>当前应结算房源总数/间</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins" id="houseMonthPayMoney">0</h1>
+                    <h1 class="no-margins" id="payMoneyHouse">0</h1>
                     <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
                     </div>
                     <small>结算房源总数/间</small>
@@ -258,7 +258,7 @@
                     <h5>当前可结算分成总额/元</h5>
                 </div>
                 <div class="ibox-content">
-                    <h1 class="no-margins" id="houseDayPayMoney"></h1>
+                    <h1 class="no-margins" id="sumMoney"></h1>
                     <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
                     </div>
                     <small>分成总额/元</small>
@@ -271,34 +271,78 @@
     <div class="ibox float-e-margins">
         <div class="ibox-title">
             <h5>分成房租列表</h5>
-            <div class="ibox-tools">
-                <a class="collapse-link">
-                    <i class="fa fa-chevron-up"></i>
-                </a>
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-wrench"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#">选项1</a>
-                    </li>
-                    <li><a href="#">选项2</a>
-                    </li>
-                </ul>
-                <a class="close-link">
-                    <i class="fa fa-times"></i>
-                </a>
-            </div>
         </div>
         <div class="ibox-content">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    分成房租列表
+                    搜索条件
+                </div>
+                <div class="panel-body form-group" style="margin-bottom:0px;">
+                    <label class="col-sm-1 control-label">创建时间</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="test11" />
+                    </div>
+                    <label class="col-sm-1 control-label">姓名</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="bankAccountName"/>
+                    </div>
+                    <label class="col-sm-1 control-label">电话</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="phone"/>
+                    </div>
+                    <label class="col-sm-1 control-label">房源状态</label>
+                    <div class="col-sm-2">
+                        <select name="isActive" class="form-control" id="status" required>
+                            <option value="">全部</option>
+                            <option value="0">启用</option>
+                            <option value="1">禁用</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="panel-body form-group" style="margin-bottom:0px;">
+                    <label class="col-sm-1 control-label">房源归属</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" id="hotel_Ids" required name="hotelId">
+                            <option value="">全部</option>
+                        </select>
+                    </div>
+                    <label class="col-sm-1 control-label">房间名称</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="houseName" name="houseName"/>
+                    </div>
+                    <label class="col-sm-1 control-label">分成方式</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" required id="payMoneyType">
+                            <option value="0">有成本</option>
+                            <option value="1">无成本</option>
+                        </select>
+                    </div>
+                    <label class="col-sm-1 control-label">付款方式</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" required name="payType" id="payType">
+                            <option value="">全部</option>
+                            <option value="1">1/月付</option>
+                            <option value="2">2/月付</option>
+                            <option value="3">3/月付</option>
+                            <option value="4">4/月付</option>
+                            <option value="6">6/月付</option>
+                            <option value="12">12/月付</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="panel-body form-group" style="margin-bottom:0px;">
+                    <label class="col-sm-1 control-label">备注</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="descriptions" name="description"/>
+                    </div>
+                    <div class="col-sm-3">
+                        <button class="btn btn-primary col-sm-12 " id="search_btn">查询</button>
+                    </div>
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
                     <table id="mytab" name="mytab" class="table table-hover"></table>
                 </div>
             </div>
-
             <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
                 <button id="btn_edit" type="button" class="btn btn-default" style="display: block; border-radius: 0">
                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
@@ -597,6 +641,10 @@
         elem: '#test4' //指定元素
     });
     laydate.render({
+        elem: '#test11' //指定元素
+        , range: true
+    });
+    laydate.render({
         elem: '#test5' //指定元素
         , type: 'date'
         , range: true
@@ -693,17 +741,11 @@
                 "hotelId": hotelId
             },
             function (data) {
-                $("#houseTotal").html(data.houseTotal);//房源总数
-                $("#dfPayMoney").html("￥" + data.dfPayMoney);//代付资金
-                $("#monthPayMoney").html("￥" + data.monthPayMoney);//代付资金
-                $("#houseMonthPayMoney").html("￥" + data.houseMonthPayMoney);//每间每月
-                $("#houseDayPayMoney").html("￥" + data.houseDayPayMoney);//每间，每天
-                $("#chaoqiPayMoney").html("￥" + data.chaoqiPayMoney);//超期未付
-                $("#fiveDayPayMoney").html("￥" + data.fiveDayPayMoney);//近5日待付
-                $("#thisMonthPayMoney").html("￥" + data.thisMonthPayMoney);//本月应付
-                $("#thisMonthPayAll").html("￥" + data.thisMonthPayAll);//本月已付租金总额
-                $("#thisMonthNotPay").html("￥" + data.thisMonthNotPay);//本月待付
-                $("#nextMonthPay").html("￥" + data.nextMonthPay);//次月应付
+                $("#rentHouseCount").html(data.rentHouseCount);//房源总数
+                $("#rentHouseSumArea").html("￥" + data.rentHouseSumArea);//分成房源总面积
+                $("#money").html("￥" + data.money);//单平收益
+                $("#payMoneyHouse").html("￥" + data.payMoneyHouse);//待结算的房间
+                $("#sumMoney").html("￥" + data.sumMoney);//总金额
             },
             "json"
         );
@@ -811,6 +853,16 @@
             shadeClose : false,
             area : [ '1000px', '520px' ],
             content : '/outcome/outcomePage'
+        });
+    }
+    function otherHotel() {
+        layer.open({
+            type : 2,
+            title : '支出列表',
+            maxmin : true,
+            shadeClose : false,
+            area : [ '1000px', '520px' ],
+            content : '/rentPay/otherHotelPage'
         });
     }
 </script>

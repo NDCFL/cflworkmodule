@@ -24,72 +24,16 @@
         </div>
         <div class="ibox-content">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    查询条件
-                </div>
-                <div class="panel-body form-group" style="margin-bottom:0px;">
-                    																								<div class="panel-body form-group" style="margin-bottom:0px;">
-								<label class="col-sm-1 control-label">用户id</label>
-								<div class="col-sm-2">
-									<input  id="userId__" name="userId"  type="text" class="form-control" required="" aria-required="true">
-								</div>
-							</div>
-																								<div class="panel-body form-group" style="margin-bottom:0px;">
-								<label class="col-sm-1 control-label">用户名</label>
-								<div class="col-sm-2">
-									<input  id="username__" name="username"  type="text" class="form-control" required="" aria-required="true">
-								</div>
-							</div>
-																								<div class="panel-body form-group" style="margin-bottom:0px;">
-								<label class="col-sm-1 control-label">用户操作</label>
-								<div class="col-sm-2">
-									<input  id="operation__" name="operation"  type="text" class="form-control" required="" aria-required="true">
-								</div>
-							</div>
-																								<div class="panel-body form-group" style="margin-bottom:0px;">
-								<label class="col-sm-1 control-label">响应时间</label>
-								<div class="col-sm-2">
-									<input  id="time__" name="time"  type="text" class="form-control" required="" aria-required="true">
-								</div>
-							</div>
-																								<div class="panel-body form-group" style="margin-bottom:0px;">
-								<label class="col-sm-1 control-label">请求方法</label>
-								<div class="col-sm-2">
-									<input  id="method__" name="method"  type="text" class="form-control" required="" aria-required="true">
-								</div>
-							</div>
-																								<div class="panel-body form-group" style="margin-bottom:0px;">
-								<label class="col-sm-1 control-label">请求参数</label>
-								<div class="col-sm-2">
-									<input  id="params__" name="params"  type="text" class="form-control" required="" aria-required="true">
-								</div>
-							</div>
-																								<div class="panel-body form-group" style="margin-bottom:0px;">
-								<label class="col-sm-1 control-label">IP地址</label>
-								<div class="col-sm-2">
-									<input  id="ip__" name="ip"  type="text" class="form-control" required="" aria-required="true">
-								</div>
-							</div>
-																								<div class="panel-body form-group" style="margin-bottom:0px;">
-								<label class="col-sm-1 control-label">创建时间</label>
-								<div class="col-sm-2">
-									<input  id="gmtCreate__" name="gmtCreate"  type="text" class="form-control" required="" aria-required="true">
-								</div>
-							</div>
-																<div class="col-sm-1" style="width: 120px;margin-left: 100px" >
-                        <button class="btn btn-primary" id="search_btn" style="width: 100px">查询</button>
-                    </div>
-                </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
                     <table id="mytab" name="mytab" class="table table-hover"></table>
-                    <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
-                        <button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量修改状态
-                        </button>
-                        <button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
-                        </button>
-                    </div>
+                    <%--<div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">--%>
+                        <%--<button id="btn_delete" onclick="deleteMany();" type="button" class="btn btn-default" style="display: block;">--%>
+                            <%--<span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量修改状态--%>
+                        <%--</button>--%>
+                        <%--<button id="btn_add" type="button" class="btn btn-default" data-toggle="modal" data-target="#webAdd">--%>
+                            <%--<span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增--%>
+                        <%--</button>--%>
+                    <%--</div>--%>
                 </div>
             </div>
         </div>

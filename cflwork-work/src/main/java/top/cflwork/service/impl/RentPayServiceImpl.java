@@ -5,10 +5,7 @@ import top.cflwork.dao.RentPayDAO;
 import top.cflwork.query.PageQuery;
 import top.cflwork.query.StatusQuery;
 import top.cflwork.service.RentPayService;
-import top.cflwork.vo.HouseRentVo;
-import top.cflwork.vo.RentPayMoneyVo;
-import top.cflwork.vo.RentPayVo;
-import top.cflwork.vo.Select2Vo;
+import top.cflwork.vo.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -78,12 +75,12 @@ public class RentPayServiceImpl implements RentPayService{
     }
 
     @Override
-    public HouseRentVo notHotelId() {
+    public RentVo notHotelId() {
         return rentPayDAO.notHotelId();
     }
 
     @Override
-    public HouseRentVo haveHotelId(Long hotelId) {
+    public RentVo haveHotelId(Long hotelId) {
         return rentPayDAO.haveHotelId(hotelId);
     }
 
@@ -100,5 +97,20 @@ public class RentPayServiceImpl implements RentPayService{
     @Override
     public List<RentPayMoneyVo> getSubjectMoney(RentPayMoneyVo rentPayMoneyVo) {
         return rentPayDAO.getSubjectMoney(rentPayMoneyVo);
+    }
+
+    @Override
+    public List<HotelVo> getOtherHotel(UserVo userVo) {
+        return rentPayDAO.getOtherHotel(userVo);
+    }
+
+    @Override
+    public List<RentPayVo> listPages(PageQuery pageQuery, RentPayVo rentPayVo) {
+        return rentPayDAO.listPages(pageQuery, rentPayVo);
+    }
+
+    @Override
+    public Long counts(PageQuery pageQuery, RentPayVo rentPayVo) {
+        return rentPayDAO.counts(pageQuery, rentPayVo);
     }
 }

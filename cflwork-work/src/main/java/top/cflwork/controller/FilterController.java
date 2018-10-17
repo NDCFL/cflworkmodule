@@ -36,8 +36,12 @@ public class FilterController implements HandlerInterceptor {
         Object user = request.getSession().getAttribute("userVo");
         String path = request.getRequestURL().toString();
         if (user == null) {
-            System.out.println("尚未登录，调到登录页面");
-            response.sendRedirect("/user/loginPage");
+            if(path.contains("/index") || path.contains("user/loginPage") || path.contains("user/getInfo") || path.contains("static") || path.contains("captcha")){
+
+            }else{
+                System.out.println("尚未登录，调到登录页面");
+                request.getRequestDispatcher("/user/loginPage").forward(request,response);
+            }
         }
     }
     @Override
@@ -46,8 +50,12 @@ public class FilterController implements HandlerInterceptor {
         Object user = request.getSession().getAttribute("userVo");
         String path = request.getRequestURL().toString();
         if (user == null) {
-            System.out.println("尚未登录，调到登录页面");
-            response.sendRedirect("/user/loginPage");
+            if(path.contains("/index") || path.contains("user/loginPage") || path.contains("user/getInfo") || path.contains("static") || path.contains("captcha")){
+
+            }else{
+                System.out.println("尚未登录，调到登录页面");
+                request.getRequestDispatcher("/user/loginPage").forward(request,response);
+            }
         }
     }
 }

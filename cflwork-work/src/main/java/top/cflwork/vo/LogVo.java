@@ -25,4 +25,5 @@ public class LogVo {
     private String ip;
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date gmtCreate;
+    private Date createTime;
 }

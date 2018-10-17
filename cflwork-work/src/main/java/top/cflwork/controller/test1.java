@@ -1,11 +1,13 @@
 package top.cflwork.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import top.cflwork.service.CashSubjectService;
 
 import javax.annotation.Resource;
 
-@Controller("test1")
+@Controller
+@RequestMapping("test1")
 public class test1 {
     @Resource
     private CashSubjectService cashSubjectService;
@@ -49,8 +51,16 @@ public class test1 {
             //处理IC卡号 09-----01
             getICCardNo(num.substring(6,num.length()));
         }*/
+        String idcard = "020901356CD372F003";
+        System.out.println();
+//        System.out.println(idcard.substring(idcard.lastIndexOf(4)+6,idcard.lastIndexOf(4)));
+
     }
 
+    @RequestMapping("testUp")
+    public void test(){
+        System.out.println("阿里云上传=================");
+    }
 
     //解密ID卡号
     public static String getIDCardNo(String srcNum) {

@@ -34,76 +34,59 @@ $('#mytab').bootstrapTable({
             align: 'center',
             valign: 'middle'
         },
-		            {
-                field : 'id',
-                title : '',
-                align: 'center',
-                sortable: true
-            },
-		            {
-                field : 'userId',
-                title : '用户id',
-                align: 'center',
-                sortable: true
-            },
-		            {
-                field : 'username',
-                title : '用户名',
-                align: 'center',
-                sortable: true
-            },
-		            {
-                field : 'operation',
-                title : '用户操作',
-                align: 'center',
-                sortable: true
-            },
-		            {
-                field : 'time',
-                title : '响应时间',
-                align: 'center',
-                sortable: true
-            },
-		            {
-                field : 'method',
-                title : '请求方法',
-                align: 'center',
-                sortable: true
-            },
-		            {
-                field : 'params',
-                title : '请求参数',
-                align: 'center',
-                sortable: true
-            },
-		            {
-                field : 'ip',
-                title : 'IP地址',
-                align: 'center',
-                sortable: true
-            },
-		            {
-                field : 'gmtCreate',
-                title : '创建时间',
-                align: 'center',
-                sortable: true
-            },
-		        {
-            title: '操作',
+        {
+            field: 'id',
+            title: '',
             align: 'center',
-            field: '',
-            formatter: function (value, row, index) {
-                var e = '<a title="编辑" href="javascript:void(0);" id="log"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
-                var d = '<a title="删除" href="javascript:void(0);" onclick="del(' + row.id + ',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
-                var f = '';
-                if (row.isActive == 1) {
-                    f = '<a title="启用" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 0 + ')"><i class="glyphicon glyphicon-ok-sign" style="color:green">启用</i></a> ';
-                } else if (row.isActive == 0) {
-                    f = '<a title="停用" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
-                }
-
-                return e + d + f;
-            }
+            sortable: true
+        },
+        {
+            field: 'userId',
+            title: '用户id',
+            align: 'center',
+            sortable: true
+        },
+        {
+            field: 'username',
+            title: '用户名',
+            align: 'center',
+            sortable: true
+        },
+        {
+            field: 'operation',
+            title: '用户操作',
+            align: 'center',
+            sortable: true
+        },
+        {
+            field: 'time',
+            title: '响应时间',
+            align: 'center',
+            sortable: true
+        },
+        {
+            field: 'method',
+            title: '请求方法',
+            align: 'center',
+            sortable: true
+        },
+        {
+            field: 'params',
+            title: '请求参数',
+            align: 'center',
+            sortable: true
+        },
+        {
+            field: 'ip',
+            title: 'IP地址',
+            align: 'center',
+            sortable: true
+        },
+        {
+            field: 'gmtCreate',
+            title: '创建时间',
+            align: 'center',
+            sortable: true
         }
     ],
     locale: 'zh-CN',//中文支持,
@@ -136,7 +119,8 @@ function queryParams(params) {
         searchVal: title
     }
 }
-function  formattime(value) {
+
+function formattime(value) {
     var date = new Date(value);
     var y = date.getFullYear();
     var m = date.getMonth() + 1;
@@ -144,9 +128,10 @@ function  formattime(value) {
     var h = date.getHours();
     var mi = date.getMinutes();
     var ss = date.getSeconds();
-    return y + '-' + (m<10?"0"+m:m) + '-' + (d<10?"0"+d:d) + ' ' + (h<10?"0"+h:h) + ':' + (mi<10?"0"+mi:mi) + ':' + (ss<10?"0"+ss:ss);
+    return y + '-' + (m < 10 ? "0" + m : m) + '-' + (d < 10 ? "0" + d : d) + ' ' + (h < 10 ? "0" + h : h) + ':' + (mi < 10 ? "0" + mi : mi) + ':' + (ss < 10 ? "0" + ss : ss);
 }
-function  formattimes(value) {
+
+function formattimes(value) {
     var date = new Date(value);
     var y = date.getFullYear();
     var m = date.getMonth() + 1;
@@ -154,28 +139,10 @@ function  formattimes(value) {
     var h = date.getHours();
     var mi = date.getMinutes();
     var ss = date.getSeconds();
-    return y + '-' + (m<10?"0"+m:m) + '-' + (d<10?"0"+d:d) ;
+    return y + '-' + (m < 10 ? "0" + m : m) + '-' + (d < 10 ? "0" + d : d);
 }
-//查询按钮事件
-$('#search_btn').click(function(){
-    $('#mytab').bootstrapTable(
-        'refresh',
-        {
-            url: '/log/findLogList',
-            query:{
-                                    id:$("#id__").val(),
-                                    userId:$("#userId__").val(),
-                                    username:$("#username__").val(),
-                                    operation:$("#operation__").val(),
-                                    time:$("#time__").val(),
-                                    method:$("#method__").val(),
-                                    params:$("#params__").val(),
-                                    ip:$("#ip__").val(),
-                                    gmtCreate:$("#gmtCreate__").val(),
-                            }
-        }
-    );
-})
+
+
 function del(id, status) {
     if (status == 0) {
         layer.msg("删除失败，已经启用的不允许删除!", {icon: 2, time: 1000});
@@ -200,6 +167,7 @@ function del(id, status) {
         });
     });
 }
+
 function edit(name) {
     $.post("/log/findLog/" + name,
         function (data) {
@@ -208,20 +176,21 @@ function edit(name) {
         "json"
     );
 }
+
 function updatestatus(id, status) {
     $.post("/log/updateStatus/" + id + "/" + status,
         function (data) {
-            if(status==0){
-                if(data.message=="ok"){
-                    layer.alert("已启用", {icon:6});
-                }else{
-                    layer.alert("操作失败", {icon:6});
+            if (status == 0) {
+                if (data.message == "ok") {
+                    layer.alert("已启用", {icon: 6});
+                } else {
+                    layer.alert("操作失败", {icon: 6});
                 }
-            }else{
-                if(data.message=="ok"){
-                    layer.alert("已停用", {icon:5});
-                }else{
-                    layer.alert("操作失败", {icon:5});
+            } else {
+                if (data.message == "ok") {
+                    layer.alert("已停用", {icon: 5});
+                } else {
+                    layer.alert("操作失败", {icon: 5});
                 }
             }
             refush();
@@ -229,13 +198,16 @@ function updatestatus(id, status) {
         "json"
     );
 }
+
 //查询按钮事件
 $('#search_btn').click(function () {
     $('#mytab').bootstrapTable('refresh', {url: '/log/logList'});
 })
+
 function refush() {
     $('#mytab').bootstrapTable('refresh', {url: '/log/logList'});
 }
+
 $("#update").click(function () {
     $.post(
         "/log/logUpdateSave",
@@ -266,6 +238,7 @@ $("#add").click(function () {
         }, "json"
     );
 });
+
 function deleteMany11() {
     var isactivity = "";
     var row = $.map($("#mytab").bootstrapTable('getSelections'), function (row) {
@@ -308,42 +281,44 @@ function deleteMany11() {
         );
     });
 }
-function deleteMany(){
-    var isactivity="";
-    var row=$.map($("#mytab").bootstrapTable('getSelections'),function(row){
-        if(row.isActive==0){
-            isactivity+=row.isActive;
+
+function deleteMany() {
+    var isactivity = "";
+    var row = $.map($("#mytab").bootstrapTable('getSelections'), function (row) {
+        if (row.isActive == 0) {
+            isactivity += row.isActive;
         }
-        return row.id ;
+        return row.id;
     });
-    if(row==""){
+    if (row == "") {
         layer.msg('修改失败，请勾选数据!', {
-            icon : 2,
-            time : 3000
+            icon: 2,
+            time: 3000
         });
-        return ;
+        return;
     }
     $("#statusId").val(row);
     $("#updateStatus").modal('show');
 
 }
+
 $("#updateSta").click(function () {
-    layer.confirm('确认要执行批量修改收支科目状态吗？',function(index){
+    layer.confirm('确认要执行批量修改收支科目状态吗？', function (index) {
         $.post(
             "/log/deleteManyLog",
             {
-                "manyId":$("#statusId").val(),
-                "status":$("#status").val()
+                "manyId": $("#statusId").val(),
+                "status": $("#status").val()
             },
-            function(data){
-                if(data.message=="修改成功!"){
-                    layer.alert(data.message, {icon:6});
+            function (data) {
+                if (data.message == "修改成功!") {
+                    layer.alert(data.message, {icon: 6});
                     refush();
-                }else{
-                    layer.alert(data.message, {icon:6});
+                } else {
+                    layer.alert(data.message, {icon: 6});
                     refush();
                 }
-            },"json"
+            }, "json"
         );
     });
 });

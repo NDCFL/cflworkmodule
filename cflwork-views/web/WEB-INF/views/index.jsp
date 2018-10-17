@@ -306,6 +306,9 @@
                             <li>
                                 <a class="J_menuItem" href="/userRole/userRolePage">用户角色管理</a>
                             </li>
+                            <li>
+                                <a class="J_menuItem" href="/permission/permissionPage">系统菜单</a>
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -317,8 +320,11 @@
                             <li>
                                 <a class="J_menuItem" href="/generator/table">代码生成</a>
                             </li>
+                            <%--<li>--%>
+                                <%--<a class="J_menuItem" href="/online/onlinePage">在线用户</a>--%>
+                            <%--</li>--%>
                             <li>
-                                <a class="J_menuItem" href="/online/onlinePage">在线用户</a>
+                                <a class="J_menuItem" href="/log/logPage">在线日志</a>
                             </li>
                         </ul>
                     </li>
@@ -943,6 +949,7 @@
             $("#updateHeadIcon").attr("src",data.headicon);
         },"json"
     );
+    <%--console.log(JSON.stringify(${permissionList})+'===============');--%>
 </script>
 </body>
 </html>
