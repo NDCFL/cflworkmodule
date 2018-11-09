@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import top.cflwork.service.CashSubjectService;
 
 import javax.annotation.Resource;
+import java.util.Collections;
+import java.util.Comparator;
 
 @Controller
 @RequestMapping("test1")
@@ -35,26 +37,6 @@ public class test1 {
          mergeVertical	    boolean	         fasle	纵向合并内容相同的单元格
      */
     public static void main(String[] args) {
-//        Integer.toHexString(1 & 0xff);
-        /*
-        String num = "020A0210002657076E03";
-        String head = num.substring(0,2);//前面的是数据头，固定两位
-        String length = num.substring(2,4);//数据包长度 ID--0A    IC--09
-        String type = num.substring(4,6);//卡类型 ID--0A    IC--09
-
-        //判断卡类型，如果是09则是IC卡,如果是OA是ID卡类型 数据包 0A --- 02
-        if((length.equals("0A") && type.equals("02")) || (length.equals("0a") && type.equals("02"))){
-            //处理ID卡号
-            getIDCardNo(num.substring(6,num.length()));
-
-        }else if(length.equals("09")  && type.equals("01")){
-            //处理IC卡号 09-----01
-            getICCardNo(num.substring(6,num.length()));
-        }*/
-        String idcard = "020901356CD372F003";
-        System.out.println();
-//        System.out.println(idcard.substring(idcard.lastIndexOf(4)+6,idcard.lastIndexOf(4)));
-
     }
 
     @RequestMapping("testUp")
