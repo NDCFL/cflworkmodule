@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+    <!-- IKAnalyzer 分词器-->
+    <bean id="luceneAnalyzer" class="org.wltea.analyzer.lucene.IKAnalyzer"/>
+
+    <!-- SimpleFSDirectory 硬盘索引库目录 -->
+    <bean id="path" class="java.io.File">
+        <constructor-arg value="D:/data/Lucene"/>
+    </bean>
+    <bean id="luceneDirectory" class="org.apache.lucene.store.SimpleFSDirectory" >
+        <constructor-arg name="path" ref="path"/>
+    </bean>
+
+    <!-- IndexWriterConfig 用于构建IndexWriter-->
+    <bean id="indexWriterConfig" class="org.apache.lucene.index.IndexWriterConfig">
+        <constructor-arg name="matchVersion" value="LUCENE_44"/>
+        <constructor-arg name="analyzer" ref="luceneAnalyzer"/>
+    </bean>
+
+    <!--IndexWriter 用于进行索引写操作-->
+    <bean id="indexWriter" class="org.apache.lucene.index.IndexWriter" >
+        <constructor-arg ref="luceneDirectory" />
+        <constructor-arg ref="indexWriterConfig" />
+    </bean>
+</beans>
